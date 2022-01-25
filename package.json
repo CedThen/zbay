@@ -14,7 +14,6 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "express": "^4.17.2",
-    "react-router-dom": "^6.2.1"
+    "express": "^4.17.2"
   }
 }
