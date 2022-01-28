@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetcher } from '../apis/'
-
+import HomeBar from './HomeBar';
+import ProductCard from './ProductCard'
 // display some products
 // have search bar
 
@@ -11,9 +12,16 @@ const Home = () => {
     fetcher(setData);
   }, [])
 
-  console.log(data)
+  if (!data) return (<div>loading</div>)
+
   return (
-    <div>this is the Homef aefawefawasdfaewaf</div>
+    <div className='bg-gray-200 dark:bg-gray-800' >
+      <div className='md:w-1/2 mx-auto'>
+        {/* hello */}
+        <HomeBar />
+        {data.map((item) => <ProductCard item={item} key={item.id} />)}
+      </div>
+    </div>
   )
 }
 

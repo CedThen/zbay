@@ -1,11 +1,8 @@
 import React from 'react';
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Cart, Login, Profile, Home } from './components'
-// import Cart from './components/Cart'
+import { Cart, Login, Profile, Home, NoMatch } from './components'
+import { routeNames } from './components/constants'
 
-
-// routing
 // redux stores here mbbe
 // or react useReducer
 
@@ -15,9 +12,11 @@ function App() {
 
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={Login} />
-        <Route path='/profile' element={Profile} />
+        <Route path={routeNames.HOME} element={<Home />} />
+        <Route path={routeNames.LOGIN} element={<Login />} />
+        <Route path={routeNames.CART} element={<Cart />} />
+        <Route path={routeNames.PROFILE} element={Profile} />
+        <Route path='*' element={<NoMatch />} />
       </Routes>
     </Router>
   );

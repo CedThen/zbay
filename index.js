@@ -5,6 +5,7 @@ const data = require('./server/data.json')
 const app = express()
 const port = process.env.PORT || 3005
 
+app.use(express.json());
 app.use(cors());
 
 app.get('/data', (req, res) => {
