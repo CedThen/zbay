@@ -4,7 +4,7 @@ import SearchContainer from './SearchContainer';
 
 const PageWrapper = ({ children }) => {
   return (
-    <div className='bg-white dark:bg-gray-800 h-screen'>
+    <div className='bg-white '>
       <div className='md:w-2/3 mx-auto h-screen'>
         <HomeBar />
         <SearchContainer />
