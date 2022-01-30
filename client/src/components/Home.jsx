@@ -5,6 +5,7 @@ import BigBanner from './BigBanner';
 
 import PageWrapper from './PageWrapper';
 import ProductCard from './ProductCard'
+import Carousel from './Carousel';
 // display some products
 // have search bar
 
@@ -30,8 +31,14 @@ const Home = () => {
   return (
     <PageWrapper>
       <BigBanner categorizedData={categorizedData} />
-      {/* {data.map((item) => <ProductCard item={item} key={item.id} />)} */}
-      {/* <SlideShow items={data} /> */}
+      <div className='md:my-20  md:text-xl'>
+        Today's deals - All with free shipping
+        <Carousel items={data} />
+      </div>
+      <div className='md:my-20  md:text-xl'>
+        Recommended for you
+        <Carousel items={data} />
+      </div>
     </PageWrapper>
   )
 }

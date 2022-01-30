@@ -1,8 +1,10 @@
 import React from 'react';
 
+// todo onclick redirecting 
+
 const SlideshowItem = ({ category }) => {
   return (
-    <div className='flex flex-row w-5/6 md:w-full h-full border-2 border-pink border-solid whitespace-nowrap object-cover'>
+    <div className='flex flex-row w-5/6 md:w-full h-full '>
       <div className='invisible w-0 md:visible md:w-1/3 h-full flex items-center text-xl md:text-3xl px-4'>Check out {category[0].category}!</div>
       <div className='w-full md:w-2/3 h-full flex flex-row justify-around mx-auto'>
         <ProductPic item={category[0]} />
