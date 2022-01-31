@@ -1,16 +1,27 @@
-const UPDATE_DATA = 'UPDATE_DATA'
+import { categorize } from "../services"
+const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS'
 
-export function updateData(data) {
+export function updateProducts(data) {
   return {
-    type: UPDATE_DATA,
+    type: UPDATE_PRODUCTS,
     payload: data
   }
 }
 
 const defaultData = {
-  products: null
+  products: null,
+  categorizedProducts: null,
+  JWT: null,
+  cart: [],
 }
 
-function dataStore(state, action) {
+export function dataReducer(state = defaultData, action) {
+  switch (action.type) {
+    case UPDATE_PRODUCTS:
+      return { ...state, products: action.payload, categorizedProducts: categorize(action.payload) }
+    default:
+      break;
+  }
+
   return state
 }

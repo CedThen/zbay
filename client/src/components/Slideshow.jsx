@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import SlideshowItem from './SlideshowItem';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
 
 const Carousel = ({ children }) => {
   const [viewedItem, setViewedItem] = useState(0);
-
+  const viewNext = useCallback(() => viewedItem < children.length - 1 ? setViewedItem(viewedItem + 1) : setViewedItem(0), [viewedItem, setViewedItem, children.length])
+  const viewPrevious = () => viewedItem > 0 ? setViewedItem(viewedItem - 1) : setViewedItem(children.length - 1)
   useEffect(() => {
     const interval = setInterval(viewNext, 5000);
     return () => clearInterval(interval)
-  }, [viewedItem])
+  }, [viewedItem, viewNext])
 
-  const viewNext = () => viewedItem < children.length - 1 ? setViewedItem(viewedItem + 1) : setViewedItem(0)
-  const viewPrevious = () => viewedItem > 0 ? setViewedItem(viewedItem - 1) : setViewedItem(children.length - 1)
+
   return (
     <div className='flex flex-row h-full w-full justify-center items-center group'>
 

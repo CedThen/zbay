@@ -1,57 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { fetcher, testUser } from '../apis/'
+import React from 'react';
 import BigBanner from './BigBanner';
 import { useSelector } from 'react-redux';
-
 import PageWrapper from './PageWrapper';
-
 import Carousel from './Carousel';
-// display some products
-// have search bar
 
 const Home = () => {
-  const [data, setData] = useState()
-  const [categorizedData, setCategorizedData] = useState()
+  const { products, categorizedProducts } = useSelector((state) => state)
 
-  useEffect(() => {
-    fetcher(setData);
-  }, [])
+  if (!products || !categorizedProducts) return (<div>loading</div>)
 
-  useEffect(() => {
-    // set categorized data
-    categorize(data, setCategorizedData)
-  }, [data])
-  const red = useSelector(state => state.test)
-  console.log(red)
-
-
-  if (!data || !categorizedData) return (<div>loading</div>)
-  // scrollable row of items
-  // row of categories
   return (
     <PageWrapper>
-      <BigBanner categorizedData={categorizedData} />
+      <BigBanner categorizedData={categorizedProducts} />
       <div className='md:my-20  md:text-xl'>
         Today's deals - All with free shipping
-        <Carousel items={data} />
+        <Carousel items={products} />
       </div>
       <div className='md:my-20  md:text-xl'>
         Recommended for you
-        <Carousel items={data} />
+        <Carousel items={products} />
       </div>
     </PageWrapper>
   )
 }
 
-function categorize(data, setCategorizedData) {
-  if (!data) return;
-  let categories = {};
-  data.forEach((item) => {
-    let category = item.category;
-    if (categories[category]) categories[category] = [...categories[category], item]
-    else categories[category] = [item]
-  })
-  setCategorizedData(categories)
-}
+
 
 export default Home

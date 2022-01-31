@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ProductWrapper from './ProductWrapper';
 // todo onclick redirecting 
 
 const SlideshowItem = ({ category }) => {
@@ -17,9 +17,9 @@ const SlideshowItem = ({ category }) => {
 
 function ProductPic({ item }) {
   return (
-    <div className='box-border h-full max-w-xs md:max-w-md mx-2 flex justify-center cursor-pointer'>
+    <ProductWrapper id={item.id} className='box-border h-full max-w-xs md:max-w-md mx-2 flex justify-center cursor-pointer'>
       <img src={item.image} alt={item.description} className='w-36 my-auto max-h-full p-1' />
-    </div>
+    </ProductWrapper>
   )
 }
 

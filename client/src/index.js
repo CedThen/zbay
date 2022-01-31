@@ -4,13 +4,9 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { dataReducer } from './store/products';
 
-const store = createStore(() => ({
-  JWT: null,
-  profile: null,
-  cart: null,
-  test: 'hello world'
-}));
+const store = createStore(dataReducer);
 
 ReactDOM.render(
   <React.StrictMode>

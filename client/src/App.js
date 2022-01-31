@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Cart, Login, Profile, Home, NoMatch } from './components'
 import { routeNames } from './components/constants'
 import ProductPage from './components/ProductPage';
-
-// redux stores here mbbe
-// or react useReducer
-
+import useFetchData from './hooks/useFetchData';
 
 function App() {
-  return (
+  useFetchData();
 
+  return (
     <Router>
       <Routes>
         <Route path={routeNames.HOME} element={<Home />} />
