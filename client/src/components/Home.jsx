@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { fetcher, testUser } from '../apis/'
 import BigBanner from './BigBanner';
-// import SlideShow from './Slideshow';
+import { useSelector } from 'react-redux';
 
 import PageWrapper from './PageWrapper';
-import ProductCard from './ProductCard'
+
 import Carousel from './Carousel';
 // display some products
 // have search bar
@@ -21,8 +21,8 @@ const Home = () => {
     // set categorized data
     categorize(data, setCategorizedData)
   }, [data])
-
-
+  const red = useSelector(state => state.test)
+  console.log(red)
 
 
   if (!data || !categorizedData) return (<div>loading</div>)

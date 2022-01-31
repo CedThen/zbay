@@ -2,5 +2,6 @@ export const routeNames = {
   HOME: '/',
   LOGIN: '/login',
   CART: '/cart',
-  PROFILE: '/profile'
+  PROFILE: '/profile',
+  PRODUCT: '/product'
 }
