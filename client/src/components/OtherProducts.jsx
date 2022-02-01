@@ -5,7 +5,6 @@ import Carousel from './Carousel';
 
 function OtherProducts({ category }) {
   const categorizedProducts = useSelector((state) => state.categorizedProducts[category])
-  console.log('categorizedProducts', categorizedProducts);
   return (
     <div className='w-full '>
       <div className='text-2xl'>Similar products</div>

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import HomeBar from './HomeBar';
 import SearchContainer from './SearchContainer';
 
-const PageWrapper = ({ children }) => {
+const PageWrapper = () => {
   return (
     <div className='bg-white '>
       <div className='md:w-2/3 mx-auto h-screen'>

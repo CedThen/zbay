@@ -18,7 +18,7 @@ function App() {
           <Route path={routeNames.CART} element={<Cart />} />
           <Route path={`${routeNames.PRODUCT}/:id`} element={<ProductDisplay />} />
           <Route path={routeNames.PROFILE} element={<Profile />} />
-          <Route path={routeNames.SEARCH} element={<Search />} />
+          <Route path={`${routeNames.SEARCH}`} element={<Search />} />
         </Route>
         <Route path={routeNames.LOGIN} element={<Login />} />
         <Route path='*' element={<NoMatch />} />

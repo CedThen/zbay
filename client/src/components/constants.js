@@ -5,5 +5,5 @@ export const routeNames = {
   PROFILE: '/profile',
   PRODUCT: '/product',
   SEARCH: '/search',
-  REGISTER: 'register'
+  REGISTER: '/register'
 }

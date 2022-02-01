@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-// might implement redux to hold this search term??
-// 
-
-const SearchBar = ({ searchTerm, setSearchTerm }) => {
-  // const [searchTerm, setSearchTerm] = useState('');
-
+const SearchBar = ({ searchParams, setSearchParams }) => {
   return (
     <div className='flex flex-row h-20 w-2/3 flex items-center '>
       <input
         placeholder=' Search for anything'
         type='search'
         className='p-2 w-full h-10 border-2 border-black border-solid focus:border-0'
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)} />
-
+        value={searchParams}
+        onChange={(e) => setSearchParams(e.target.value)} />
     </div>
   )
 }
