@@ -6,9 +6,9 @@ import PageWrapper from './PageWrapper';
 const ProductPage = () => {
   useFetchData()
   return (
-    <PageWrapper>
-      <Outlet />
-    </PageWrapper>
+
+    <Outlet />
+
   )
 }
 
