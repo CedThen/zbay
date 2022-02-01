@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
 
-const Carousel = ({ children }) => {
+const Slideshow = ({ children }) => {
   const [viewedItem, setViewedItem] = useState(0);
   const viewNext = useCallback(() => viewedItem < children.length - 1 ? setViewedItem(viewedItem + 1) : setViewedItem(0), [viewedItem, setViewedItem, children.length])
   const viewPrevious = () => viewedItem > 0 ? setViewedItem(viewedItem - 1) : setViewedItem(children.length - 1)
@@ -23,4 +23,4 @@ const Carousel = ({ children }) => {
   )
 }
 
-export default Carousel
+export default Slideshow

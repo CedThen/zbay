@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import { dataReducer } from './store/products';
+import { dataReducer } from './store/dataStore';
 
 const store = createStore(dataReducer);
 

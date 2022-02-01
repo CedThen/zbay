@@ -1,4 +1,4 @@
-import { updateProducts } from '../store/products';
+import { updateProducts } from '../store/dataStore';
 import { useDispatch } from "react-redux"
 import { fetcher } from '../apis';
 

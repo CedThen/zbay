@@ -1,13 +1,12 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import useFetchData from '../hooks/useFetchData';
 import PageWrapper from './PageWrapper';
 
 const ProductPage = () => {
-  // const location = useLocation();
-  // console.log('state', location);
+  useFetchData()
   return (
     <PageWrapper>
-      hello
       <Outlet />
     </PageWrapper>
   )

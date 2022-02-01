@@ -3,12 +3,15 @@ import BigBanner from './BigBanner';
 import { useSelector } from 'react-redux';
 import PageWrapper from './PageWrapper';
 import Carousel from './Carousel';
+import { shuffleArray } from '../services';
 
 const Home = () => {
   const { products, categorizedProducts } = useSelector((state) => state)
 
   if (!products || !categorizedProducts) return (<div>loading</div>)
 
+  const shuffled = shuffleArray([...products])
+  console.log('products', products);
   return (
     <PageWrapper>
       <BigBanner categorizedData={categorizedProducts} />
@@ -18,7 +21,7 @@ const Home = () => {
       </div>
       <div className='md:my-20  md:text-xl'>
         Recommended for you
-        <Carousel items={products} />
+        <Carousel items={shuffled} />
       </div>
     </PageWrapper>
   )
