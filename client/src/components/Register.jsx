@@ -1,14 +1,11 @@
-import e from 'cors';
 import React, { useState } from 'react';
 import useCustomNavigate from '../hooks/useCustomNavigate';
 import { routeNames } from './constants';
 
-
-const Login = () => {
+function Register() {
   const [email, setEmail] = useState({ value: '', isValid: true });
   const [password, setPassword] = useState({ value: '', isValid: true });
   const navHome = useCustomNavigate(routeNames.HOME)
-  const navRegister = useCustomNavigate(routeNames.REGISTER)
 
   function handleSubmit(e) {
 
@@ -23,12 +20,10 @@ const Login = () => {
   }
 
   return (
+
     <div className='md:w-1/4 w-5/6 h-screen bg-white mx-auto flex flex-col justify-center items-center'>
       <div className='absolute md:top-10 md:left-10 top-5 text-5xl underline cursor-pointer' onClick={navHome}>zbay</div>
-      <div className='mx-auto md:text-5xl text-2xl flex flex-col justify-center items-center'>
-        Hello
-        <div className='text-base my-10'>Sign into zbay or make an account</div>
-      </div>
+      <div className='text-4xl pb-12'>Create an account</div>
       <form className='flex justify-center items-center flex-col w-full' onSubmit={handleSubmit}>
         <label className='w-full  flex justify-center items-center'>
           <input type='email'
@@ -47,14 +42,11 @@ const Login = () => {
             placeholder='password'
             className={`border-box border-grey border-2 border-solid ${!password.isValid && 'border-red-400'}  w-5/6 h-12 rounded-md pl-3 text-lg shadow-black shadow-sm `} />
         </label>
-        {password.isValid ? <br className='py-2' /> : <p className='py-2'> Please enter your password</p >}
+        {password.isValid ? <br className='my-2' /> : <p className='my-2'> Please enter a secure password</p >}
         <button className='bg-blue-600 text-white rounded-lg h-12 w-5/6 text-xl my-5 active:bg-blue-800 shadow-black shadow-sm' onClick={handleSubmit}>Submit</button>
-
       </form>
-      <p>Don't have an account? <span className='text-blue-400 cursor-pointer underline' onClick={navRegister} >Register</span></p>
-
     </div>
   )
 }
 
-export default Login
+export default Register;

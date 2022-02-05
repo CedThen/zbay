@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchBar = ({ searchParams, setSearchParams }) => {
   return (
-    <div className='flex flex-row h-20 w-2/3 flex items-center '>
+    <div className='flex flex-row h-20 w-full flex items-center '>
       <input
         placeholder=' Search for anything'
         type='search'

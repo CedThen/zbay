@@ -4,6 +4,7 @@ import { Cart, Login, Profile, Home, NoMatch } from './components'
 import { routeNames } from './components/constants'
 import PageWrapper from './components/PageWrapper';
 import ProductDisplay from './components/ProductDisplay';
+import Register from './components/Register';
 import Search from './components/Search'
 import useFetchData from './hooks/useFetchData';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path={`${routeNames.SEARCH}`} element={<Search />} />
         </Route>
         <Route path={routeNames.LOGIN} element={<Login />} />
+        <Route path={routeNames.REGISTER} element={<Register />} />
         <Route path='*' element={<NoMatch />} />
       </Routes>
     </Router>
@@ -28,3 +30,4 @@ function App() {
 }
 
 export default App;
+

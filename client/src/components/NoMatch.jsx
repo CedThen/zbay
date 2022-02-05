@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 
 const NoMatch = () => {
-  const [data, setData] = useState()
+  // const [data, setData] = useState()
 
 
 

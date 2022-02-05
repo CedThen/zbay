@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import ProductWrapper from './ProductWrapper';
@@ -15,19 +15,56 @@ function Search() {
     )
     return res
   })
-  console.log('products', products);
-  if (!products) return <div>loading</div>
-  // normally make another req to server to find stuff but im just gonna filter the products
-  return (
-    <div className='w-full mt-10'>
-      <div>
+  const [sortState, setSortState] = useState('relevance')
+  const [sortDirection, setSortDirection] = useState('');
 
+  if (!products) return <div>loading</div>
+
+  const sortedProducts = sortState === 'price' ? products.sort((a, b) => {
+    if (sortDirection === 'ascending') return a.price - b.price
+    return b.price - a.price
+  }) : products
+
+  return (
+    <div className='w-full mt-10 flex flex-row'>
+      <div className='w-1/6'>
+        <Sortby sortStates={{ sortState, setSortState }} sortDirections={{ sortDirection, setSortDirection }} />
       </div>
-      <div>
-        {products.map((product) => <SearchItem key={product.id} item={product} />)}
+      <div className='w-5/6'>
+        {sortedProducts.map((product) => <SearchItem key={product.id} item={product} />)}
       </div>
     </div>
   );
+}
+
+function Sortby({ sortStates, sortDirections }) {
+  return (
+    <div className='w-full'>
+      <p className='font-bold text-xl'>Sort by:</p>
+      <br />
+      <div className='w-full'>
+        <div onChange={(e) => sortStates.setSortState(e.target.value)}>
+          <input type="radio" id="relevance" defaultChecked={sortStates.sortState === 'relevance'}
+            name="type" value="relevance" />
+          <label className='text-xl p-5' value="relevance" onClick={(e) => console.log('clicked')}>Relevance</label>
+          <br />
+          <input type="radio" id="Price" defaultChecked={sortStates.sortState === 'price'}
+            name="type" value="price" />
+          <label className='text-xl p-5'>Price</label>
+        </div>
+        <br />
+        <div onChange={(e) => sortDirections.setSortDirection(e.target.value)}>
+          <input type="radio" id="ascending" defaultChecked={sortDirections.sortDirection === 'ascending'}
+            name='direction' value="ascending" />
+          <label className='text-xl p-5'>Ascending</label>
+          <br />
+          <input type="radio" id="relevance" defaultChecked={sortDirections.sortDirection === 'descending'}
+            name='direction' value="descending" />
+          <label className='text-xl p-5'>Descending</label>
+        </div>
+      </div >
+    </div>
+  )
 }
 
 
