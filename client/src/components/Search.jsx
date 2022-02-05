@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import ProductWrapper from './ProductWrapper';
-
+import Radio from './Radio'
 
 function Search() {
   const [searchParams] = useSearchParams();
@@ -40,20 +40,50 @@ function Search() {
 function Sortby({ sortStates, sortDirections }) {
   return (
     <div className='w-full'>
+      <div>sortState: {sortStates.sortState}</div>
+      <div>sortDirection: {sortDirections.sortDirection}</div>
       <p className='font-bold text-xl'>Sort by:</p>
       <br />
       <div className='w-full'>
-        <div onChange={(e) => sortStates.setSortState(e.target.value)}>
-          <input type="radio" id="relevance" defaultChecked={sortStates.sortState === 'relevance'}
-            name="type" value="relevance" />
-          <label className='text-xl p-5' value="relevance" onClick={(e) => console.log('clicked')}>Relevance</label>
-          <br />
-          <input type="radio" id="Price" defaultChecked={sortStates.sortState === 'price'}
-            name="type" value="price" />
-          <label className='text-xl p-5'>Price</label>
-        </div>
+        <form onChange={(e) => {
+          sortStates.setSortState(e.target.value)
+          if (e.target.value === 'relevance') sortDirections.setSortDirection('')
+        }
+        }>
+          <Radio
+            label='Relevance'
+            name='sortType'
+            value='relevance'
+            defaultChecked={sortStates.sortState === 'relevance'}
+            onClick={() => {
+              sortStates.setSortState('relevance')
+              sortDirections.setSortDirection('')
+            }}
+          />
+          <Radio
+            label='Price'
+            name='sortType'
+            value='price'
+            onClick={() => sortStates.setSortState('price')}
+          />
+        </form>
         <br />
-        <div onChange={(e) => sortDirections.setSortDirection(e.target.value)}>
+        <form onChange={(e) => sortDirections.setSortDirection(e.target.value)}>
+          <Radio
+            label='Ascending'
+            name='sortType'
+            value='ascending'
+            defaultChecked={sortDirections.sortDirection === 'ascending'}
+            onClick={() => sortDirections.setSortDirection('ascending')}
+          />
+          <Radio
+            label='Descending'
+            name='sortType'
+            value='descending'
+            onClick={() => sortDirections.setSortDirection('descending')}
+          />
+        </form>
+        {/* <div onChange={(e) => sortDirections.setSortDirection(e.target.value)}>
           <input type="radio" id="ascending" defaultChecked={sortDirections.sortDirection === 'ascending'}
             name='direction' value="ascending" />
           <label className='text-xl p-5'>Ascending</label>
@@ -61,7 +91,7 @@ function Sortby({ sortStates, sortDirections }) {
           <input type="radio" id="relevance" defaultChecked={sortDirections.sortDirection === 'descending'}
             name='direction' value="descending" />
           <label className='text-xl p-5'>Descending</label>
-        </div>
+        </div> */}
       </div >
     </div>
   )
