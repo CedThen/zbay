@@ -1,30 +1,27 @@
-const { getUser, createUser } = require('../db')
-
+const { findTargetEmail, createUser } = require('../db')
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
-const someOtherPlaintextPassword = 'not_bacon';
-
-function authenticateLogin(req, res) {
-  console.log('auth login', req.body)
-  res.send("hello world")
-}
+const jwt = require('jsonwebtoken')
 
 async function registerUser(req, res) {
   const { email, password } = req.body
-  const isEmailNew = (await getUser(email)).length === 0
+  const isEmailNew = (await findTargetEmail(email)).length === 0
   if (isEmailNew) {
-    const hashedPassword = bcrypt.hash(password, 10, async (err, hash) => {
-      console.log('hash', hash);
-      await createUser(email, hashedPassword)
-      // await createToken
+    await bcrypt.hash(password, 1, async (err, hash) => {
+      await createUser(email, hash)
+
+      // await createToken, return token
+      // token has 
     })
-    // hash password, create user, return token
   }
   else {
     res.status(403).send("meep meep")
   }
   // if user exists, return 
+}
+
+async function authenticateLogin(req, res) {
+  const { email, password } = req.body
+
 }
 
 module.exports = {

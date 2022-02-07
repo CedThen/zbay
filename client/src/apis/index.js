@@ -17,13 +17,21 @@ export const login = async (credentials) => {
 }
 
 export const register = async (credentials) => {
-  const res = await fetch('http://localhost:3005/auth/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
+  try {
+    const res = await fetch('http://localhost:3005/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+    const d = await res.json();
+    console.log('res', res);
+    console.log('d', d);
+  } catch (err) {
+    console.log('errrr', err);
+
+  }
   // const token = await res.json();
   // return token;
 }

@@ -1,28 +1,16 @@
 const secrets = require('../../secrets.js')
 const { Pool } = require('pg');
+const res = require('express/lib/response');
 const pool = new Pool({ ...secrets.db });
 
-const getUsers = () => {
-  return new Promise(function (resolve, reject) {
-    pool.query('SELECT * FROM users', (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(results.rows);
-    })
-  })
-}
-
-const getUser = (email) => {
-
-  return new Promise(function (resolve, reject) {
-    pool.query(`SELECT id FROM users WHERE email = '${email}'`, (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(results.rows);
-    })
-  })
+const findTargetEmail = async (email) => {
+  try {
+    const text = 'SELECT id FROM users WHERE email = $1'
+    return (await pool.query(text, [email])).rows
+  } catch (err) {
+    console.log(err.stack);
+  }
+  return res.rows
 }
 
 const createUser = async (email, hashedPassword) => {
@@ -30,14 +18,26 @@ const createUser = async (email, hashedPassword) => {
   const values = [email, hashedPassword]
   try {
     const res = await pool.query(text, values);
-    console.log(res)
+    return res.rows
   } catch (err) {
     console.log(err.stack)
   }
 }
 
+const findUser = async (email, hash) => {
+  const text = 'SELECT user FROM users (email, password) VALUES($1, $2) RETURNING *'
+  const values = [email, hash]
+  try {
+    const res = await pool.query(text, values)
+    return res.rows
+  } catch (err) {
+    console.log('err.stack', err.stack);
+  }
+}
+
+
 module.exports = {
-  getUsers,
-  getUser,
-  createUser
+  findTargetEmail,
+  createUser,
+  findUser
 }
