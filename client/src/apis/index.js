@@ -2,7 +2,6 @@ import { parseData } from "../services"
 
 export const fetcher = async () => {
   return await parseData(await fetch('http://localhost:3005/data'))
-  // return res
 }
 
 export const login = async (credentials) => {
@@ -13,6 +12,18 @@ export const login = async (credentials) => {
     },
     body: JSON.stringify(credentials)
   })
-  const token = await res.json();
-  return token;
+  // const token = await res.json();
+  // return token;
+}
+
+export const register = async (credentials) => {
+  const res = await fetch('http://localhost:3005/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  })
+  // const token = await res.json();
+  // return token;
 }

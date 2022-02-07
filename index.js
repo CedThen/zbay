@@ -11,12 +11,8 @@ const { getUsers } = require('./server/db')
 app.use(express.json());
 app.use(cors());
 
-// app.use(function (req, res, next) {
-//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
-//   next();
-// });
+app.post('/auth/login', require('./server/routes/auth.js').authenticateLogin)
+app.post('/auth/register', require('./server/routes/auth.js').registerUser)
 
 
 app.get('/users', async (req, res) => {
@@ -26,7 +22,6 @@ app.get('/users', async (req, res) => {
 })
 
 app.get('/data', (req, res) => {
-  console.log('fetch req')
   res.json(JSON.stringify(data))
 })
 

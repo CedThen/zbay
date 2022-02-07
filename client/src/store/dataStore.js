@@ -1,6 +1,7 @@
 import { categorize } from "../services"
 
 const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS'
+const UPDATE_USER = 'UPDATE_USER'
 
 export function updateProducts(data) {
   return {
@@ -9,11 +10,21 @@ export function updateProducts(data) {
   }
 }
 
+export function updateUser(user) {
+  return {
+    type: UPDATE_USER,
+    payload: user
+  }
+}
+
 const defaultData = {
   products: null,
   categorizedProducts: null,
   JWT: null,
-  cart: [],
+  user: {
+    cart: [],
+    history: null
+  }
 }
 
 export function dataReducer(state = defaultData, action) {
