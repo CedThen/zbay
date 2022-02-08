@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import useCustomNavigate from '../hooks/useCustomNavigate';
 import { routeNames } from './constants';
 import { register } from '../apis/index.js'
+import { updateUser } from '../store/dataStore';
+import { useDispatch } from 'react-redux';
+
 
 function Register() {
   const [email, setEmail] = useState({ value: '', isValid: true });
@@ -9,16 +12,23 @@ function Register() {
   const [error, setError] = useState('')
   const navHome = useCustomNavigate(routeNames.HOME)
   const navLogin = useCustomNavigate(routeNames.LOGIN)
-
-  function handleSubmit(e) {
+  const dispatch = useDispatch();
+  async function handleSubmit(e) {
     e.preventDefault()
-    if (email.value.length === 0) setEmail({ ...email, isValid: false })
-    if (password.value.length === 0) setPassword({ ...password, isValid: false })
-    console.log('registering');
-    // try to register
-    const res = register({ email: email.value, password: password.value })
-    // if response is good, redirect to home
-    // else set error and display error message
+    setError('')
+    const validEmail = email.value.length > 0
+    const validPassword = password.value.length > 0
+    if (!validEmail) setEmail({ ...email, isValid: false })
+    if (!validPassword) setPassword({ ...password, isValid: false })
+
+    if (validEmail && validPassword) {
+      const res = await register({ email: email.value, password: password.value })
+      if (res.err) setError(res.err)
+      else {
+        dispatch(updateUser({ isLoggedIn: true, user: { ...res.newUser, cart: [], orders: [] } }))
+        navHome()
+      }
+    }
   }
 
   function onInput(input, stateCallback) {
@@ -30,6 +40,7 @@ function Register() {
       <div className='md:w-1/4 w-5/6 h-1/2 bg-white mx-auto flex flex-col justify-center items-center shadow border rounded-md'>
         <div className='absolute md:top-10 md:left-10 top-5 text-5xl underline cursor-pointer' onClick={navHome}>zbay</div>
         <div className='text-4xl pb-12'>Create an account</div>
+        <p className='text-red-400 text-sm pb-2'>{error}</p>
         <form className='flex justify-center items-center flex-col w-full' onSubmit={handleSubmit}>
           <label className='w-full  flex justify-center items-center'>
             <input type='email'

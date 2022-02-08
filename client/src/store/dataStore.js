@@ -1,7 +1,8 @@
 import { categorize } from "../services"
-
+import { updateCartDb } from "../apis/index"
 const UPDATE_PRODUCTS = 'UPDATE_PRODUCTS'
 const UPDATE_USER = 'UPDATE_USER'
+const UPDATE_CART = 'UPDATE_CART'
 
 export function updateProducts(data) {
   return {
@@ -17,13 +18,30 @@ export function updateUser(user) {
   }
 }
 
+export function logOut() {
+  return {
+    type: UPDATE_USER,
+    payload: { isLoggedIn: false, token: null, user: defaultData.user }
+  }
+}
+
+export function updateCart(cart) {
+  return {
+    type: UPDATE_CART,
+    payload: cart
+  }
+}
+
 const defaultData = {
+  isLoggedIn: false,
   products: null,
   categorizedProducts: null,
-  JWT: null,
+  token: null,
   user: {
+    id: null,
+    email: '',
     cart: [],
-    history: null
+    orders: []
   }
 }
 
@@ -31,6 +49,12 @@ export function dataReducer(state = defaultData, action) {
   switch (action.type) {
     case UPDATE_PRODUCTS:
       return { ...state, products: action.payload, categorizedProducts: categorize(action.payload) }
+    case UPDATE_USER:
+      console.log('payload: ', action.payload)
+      return { ...state, ...action.payload }
+    case UPDATE_CART:
+      updateCartDb(action.payload)
+      return { ...state, user: { ...state.user, cart: action.payload } }
     default:
       break;
   }

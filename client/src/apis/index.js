@@ -1,19 +1,22 @@
 import { parseData } from "../services"
 
 export const fetcher = async () => {
-  return await parseData(await fetch('http://localhost:3005/data'))
+  return await parseData(await fetch('http://localhost:3005/api/data'))
 }
 
 export const login = async (credentials) => {
-  const res = await fetch('http://localhost:3005/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  })
-  // const token = await res.json();
-  // return token;
+  try {
+    const res = await fetch('http://localhost:3005/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+    return await res.json();
+  } catch (err) {
+    return err
+  }
 }
 
 export const register = async (credentials) => {
@@ -25,13 +28,23 @@ export const register = async (credentials) => {
       },
       body: JSON.stringify(credentials)
     })
-    const d = await res.json();
-    console.log('res', res);
-    console.log('d', d);
+    return await res.json();
   } catch (err) {
-    console.log('errrr', err);
-
+    return err
   }
-  // const token = await res.json();
-  // return token;
+}
+
+export const updateCartDb = async (token, cart) => {
+  try {
+    const res = await fetch('http://localhost:3005/api/cart', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token, cart })
+    })
+    return await res.json();
+  } catch (err) {
+    return err
+  }
 }

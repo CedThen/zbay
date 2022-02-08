@@ -13,15 +13,9 @@ app.use(cors());
 
 app.post('/auth/login', require('./server/routes/auth.js').authenticateLogin)
 app.post('/auth/register', require('./server/routes/auth.js').registerUser)
+app.put('/api/cart', require('./server/routes/orders.js').updateCart)
 
-
-app.get('/users', async (req, res) => {
-  const users = await getUsers();
-  console.log('users', users)
-  res.send(users)
-})
-
-app.get('/data', (req, res) => {
+app.get('/api/data', (req, res) => {
   res.json(JSON.stringify(data))
 })
 

@@ -3,22 +3,30 @@ import React, { useState } from 'react';
 import useCustomNavigate from '../hooks/useCustomNavigate';
 import { routeNames } from './constants';
 import { login } from '../apis/index.js'
-
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../store/dataStore'
 const Login = () => {
   const [email, setEmail] = useState({ value: '', isValid: true });
   const [password, setPassword] = useState({ value: '', isValid: true });
+  const [error, setError] = useState('')
   const navHome = useCustomNavigate(routeNames.HOME)
   const navRegister = useCustomNavigate(routeNames.REGISTER)
+  const dispatch = useDispatch();
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setError('')
     if (email.value.length === 0) setEmail({ ...email, isValid: false })
     if (password.value.length === 0) setPassword({ ...password, isValid: false })
 
     if (email.value.length > 0 && password.value.length > 0) {
       const res = await login({ email: email.value, password: password.value })
-      // if response is good, redirect to home
-      // else set error and display error message
+      console.log('res user', res);
+      if (res.err) setError(res.err)
+      else {
+        dispatch(updateUser({ token: res.token, isLoggedIn: true, user: { ...res.user } }))
+        navHome()
+      }
     }
   }
 
@@ -34,6 +42,7 @@ const Login = () => {
           Hello
           <div className='text-base my-10'>Sign into zbay or make an account</div>
         </div>
+        <p className='text-red-400 text-sm pb-2'>{error}</p>
         <form className='flex justify-center items-center flex-col w-full' onSubmit={handleSubmit}>
           <label className='w-full  flex justify-center items-center'>
             <input type='email'

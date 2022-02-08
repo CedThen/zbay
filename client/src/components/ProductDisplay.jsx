@@ -1,16 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import OtherProducts from './OtherProducts';
+import { updateCart } from '../store/dataStore'
+
 
 function ProductDisplay() {
-
+  const dispatch = useDispatch();
   const { id } = useParams();
   const item = useSelector((state) => {
     if (!state.products) return null
     const itemIndex = state.products.findIndex(element => element.id === parseInt(id))
     return state.products[itemIndex]
   })
+  const cart = useSelector(state => state.user.cart)
+
   if (!item) return <div>loading</div>
 
   const { title, image, price, description, category, rating } = item
@@ -25,7 +29,7 @@ function ProductDisplay() {
           <div className='py-5'>Rating: {rating.rate} {rating.count} reviews</div>
           <div className='text-xl h-32 flex flex-row items-center justify-between border-t-2 border-b-2 p-5'>
             <div className='w-1/3 text-center flex flex-row justify-center'>Price: <span className='text-3xl text-red-600 px-4'>${price.toFixed(2)}</span></div>
-            <button className='h-16 w-1/2 md:w-1/3 bg-blue-600 text-white rounded-full'>Add to Cart</button>
+            <button className='h-16 w-1/2 md:w-1/3 bg-blue-600 text-white rounded-full' onClick={() => dispatch(updateCart([...cart, id]))}>Add to Cart</button>
           </div>
           <div className='text-lg py-10'>
             {description}
