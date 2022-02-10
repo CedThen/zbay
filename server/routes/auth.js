@@ -2,7 +2,7 @@ const { findTargetEmail, createUser, findUser, retrieveOrders } = require('../db
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
-const key = require('./index.js')
+const { key } = require('./index.js')
 const hourInMS = 60 * 60 * 1000
 
 async function registerUser(req, res) {
@@ -35,7 +35,7 @@ async function authenticateLogin(req, res) {
       const { id, email, cart } = user
       const token = jwt.sign({ sub: id, email }, key)
       const orders = await retrieveOrders(id)
-      res.send({ user: { id: id, email: email, cart: cart || [], orders }, token })
+      res.send({ user: { id: id, email: email, cart: cart || {}, orders }, token })
     } else {
       res.status(403).send({ err: "Login credentials invalid" })
     }

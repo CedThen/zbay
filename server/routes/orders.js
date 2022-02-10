@@ -2,7 +2,6 @@ const { verifyToken } = require('./index')
 // update cart
 async function updateCart(req, res) {
   const { token, cart } = req.body
-  console.log('token', token);
   const isVerified = verifyToken(token)
   console.log('isVerified', isVerified);
   res.send('helo')

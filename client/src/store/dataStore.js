@@ -53,7 +53,7 @@ export function dataReducer(state = defaultData, action) {
       console.log('payload: ', action.payload)
       return { ...state, ...action.payload }
     case UPDATE_CART:
-      updateCartDb(action.payload)
+      updateCartDb(state.token, action.payload)
       return { ...state, user: { ...state.user, cart: action.payload } }
     default:
       break;
