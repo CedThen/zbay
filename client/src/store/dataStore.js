@@ -40,7 +40,7 @@ const defaultData = {
   user: {
     id: null,
     email: '',
-    cart: [],
+    cart: {},
     orders: []
   }
 }
@@ -50,7 +50,6 @@ export function dataReducer(state = defaultData, action) {
     case UPDATE_PRODUCTS:
       return { ...state, products: action.payload, categorizedProducts: categorize(action.payload) }
     case UPDATE_USER:
-      console.log('payload: ', action.payload)
       return { ...state, ...action.payload }
     case UPDATE_CART:
       updateCartDb(state.token, action.payload)

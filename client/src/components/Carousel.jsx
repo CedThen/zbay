@@ -3,7 +3,7 @@ import ProductWrapper from './ProductWrapper';
 
 const Carousel = ({ items }) => {
   return (
-    <div className=' w-full h-64 my-5 md:h-1/3 flex flex-row overflow-x-scroll' >
+    <div className=' w-full h-64 my-5 md:h-1/3 flex flex-col md:flex-row md:overflow-x-scroll' >
       {items.map((item, index) => <CarouselItem item={item} key={index} />)}
     </div>
   )

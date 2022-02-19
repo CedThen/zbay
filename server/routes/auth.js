@@ -23,13 +23,9 @@ async function registerUser(req, res) {
 
 async function authenticateLogin(req, res) {
   const { email, password } = req.body
-  console.log('authenticating login');
-  // find user with matching email
-  // verify if hashes match
-  // if match, return with data and token
-  // else return err
+  console.log('authenticating login', email, password);
   const user = await findUser(email)
-  if (user === null) return res.status(403).send({ err: "Login credentials invalid" })
+  if (user === null || user === undefined) return res.status(403).send({ err: "Login credentials invalid" })
   bcrypt.compare(password, user.password, async (err, result) => {
     if (result) {
       const { id, email, cart } = user

@@ -45,6 +45,17 @@ const retrieveOrders = async (id) => {
   }
 }
 
+const updateUserCart = async (userId, cart) => {
+  const text = 'UPDATE users SET Cart = $1 WHERE id = $2 RETURNING Cart'
+  const values = [cart, userId]
+  try {
+    const res = await pool.query(text, values)
+    console.log('res', res.rows[0])
+    return res.rows
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
 
 
 
@@ -52,7 +63,8 @@ module.exports = {
   findTargetEmail,
   createUser,
   findUser,
-  retrieveOrders
+  retrieveOrders,
+  updateUserCart
 }
 
 // [{"id":"1","price":"109.95"},{"id":"2", "price":"22.3"} ]
